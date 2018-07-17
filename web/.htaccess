@@ -1,0 +1,21 @@
+#php_value post_max_size 30M
+#php_value upload_max_filesize 20M
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+
+#RewriteCond %{REQUEST_URI} (.*)
+#RewriteRule ^(.*)$ https://admin.letshindig.com/ [L,R=301]
+
+#RewriteCond %{HTTPS} off
+# First rewrite to HTTPS:
+# Don't put www. here. If it is already there it will be included, if not
+# the subsequent rule will catch it.
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
